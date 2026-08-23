@@ -1,0 +1,31 @@
+ls:
+  .dir: regex:\.?[a-z0-9]+(-[a-z0-9]+)*
+  .*: regex:[a-z0-9]*([._][a-z0-9]+)*
+
+ignore:
+  - .git
+  - .direnv
+  - .agents
+  - .codex
+  - .github
+  - .next
+  - AGENTS.md
+  - CONTRIBUTING.md
+  - README.md
+  - docs/adr
+  - next-env.d.ts
+  - node_modules
+  - out
+  - playwright-report
+  - pnpm-lock.yaml
+  - pnpm-workspace.yaml
+  - public
+  - result
+  - result-*
+  - src/**/global-error.tsx
+  - src/**/not-found.tsx
+  - src/**/opengraph-image.*
+  - src/**/twitter-image.*
+  - supabase/.branches
+  - supabase/.temp
+  - test-results
