@@ -1,0 +1,16 @@
+pre-commit:
+  parallel: true
+  commands:
+    format:
+      glob: "*.{js,jsx,json,jsonc,mjs,ts,tsx,yaml,yml}"
+      run: pnpm exec oxfmt --check {staged_files}
+    lint:
+      glob: "*.{js,jsx,mjs,ts,tsx}"
+      run: pnpm exec oxlint {staged_files}
+    filenames:
+      run: pnpm run ls-lint
+
+commit-msg:
+  commands:
+    commitlint:
+      run: pnpm exec commitlint --edit {1}

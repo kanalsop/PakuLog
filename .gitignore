@@ -1,0 +1,35 @@
+# macOS
+.DS_Store
+
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Next.js
+.next/
+out/
+
+# Tests
+coverage/
+playwright-report/
+test-results/
+
+# Environment variables
+.env
+.env.*
+!.env.example
+
+# Nix and direnv
+.direnv/
+result
+result-*
+
+# Supabase
+supabase/.branches/
+supabase/.temp/
+
+# Tool caches
+.ruff_cache/
+.turbo/
+.vite/
+*.tsbuildinfo

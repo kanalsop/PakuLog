@@ -1,0 +1,13 @@
+{
+  "$schema": "https://unpkg.com/knip@latest/schema.json",
+  "ignoreDependencies": ["supabase"],
+  "next": {
+    "entry": ["src/app/**/*.{ts,tsx}"]
+  },
+  "playwright": {
+    "entry": ["tests/e2e/**/*.ts"]
+  },
+  "vitest": {
+    "entry": ["src/**/*.{test,spec}.{ts,tsx}", "tests/setup.ts"]
+  }
+}
