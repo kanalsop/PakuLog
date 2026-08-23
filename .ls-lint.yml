@@ -9,6 +9,7 @@ ignore:
   - .codex
   - .github
   - .next
+  - .ruff_cache
   - AGENTS.md
   - CONTRIBUTING.md
   - README.md

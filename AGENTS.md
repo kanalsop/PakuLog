@@ -26,6 +26,8 @@ health management, not diagnosis, treatment, or prevention of disease.
 - Load `gha-style` before changing GitHub Actions.
 - Load `git-workflow` before implementation or Git operations. Codex branches use
   `codex/<type>/<kebab-subject>`.
+- Load `git-commit-split` only when the user explicitly asks to split pending changes or create
+  one branch and pull request per feature.
 
 ## Invariants
 

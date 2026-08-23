@@ -29,6 +29,7 @@ supabase/.branches/
 supabase/.temp/
 
 # Tool caches
+.ruff_cache/
 .turbo/
 .vite/
 *.tsbuildinfo
