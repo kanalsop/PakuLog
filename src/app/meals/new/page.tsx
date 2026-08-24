@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import { FoodWeightInput } from "../../../features/meal-entry/ui/food_weight_input";
+import { FoodWeightInput } from "../../../modules/meal-entry/ui/food_weight_input";
 
 export default function NewMealPage() {
   return (
