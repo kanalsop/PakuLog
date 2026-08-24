@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 const FEATURES = [
   {
     title: "記録する",
@@ -31,6 +33,12 @@ export default function Home() {
             <p className="max-w-2xl text-base leading-8 text-slate-600 sm:text-lg">
               食べたものを手軽に残し，栄養状態をひと目で振り返るための個人開発Webアプリです．
             </p>
+            <Link
+              className="w-fit rounded-full bg-emerald-800 px-6 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-emerald-900 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-emerald-800"
+              href="/meals/new"
+            >
+              食事を記録する
+            </Link>
           </div>
         </header>
 

@@ -6,7 +6,7 @@ The product is for everyday health management, not diagnosis, treatment, or prev
 ## Repository Map
 
 - `src/app/` — Next.js App Router entry points and UI.
-- `src/features/` — feature-owned domain, application, and UI code when features are added.
+- `src/modules/` — module-owned domain, application, and UI code.
 - `src/lib/` — narrow shared infrastructure with no feature ownership.
 - `tests/e2e/` — browser-level executable specifications.
 - `supabase/` — Supabase CLI configuration and future database migrations.

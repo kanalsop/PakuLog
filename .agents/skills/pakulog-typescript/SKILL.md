@@ -19,12 +19,12 @@ description: >
 
 - Use Server Components by default. Add `"use client"` only for state, effects, event handlers,
   browser APIs, or client-only libraries, and keep that boundary narrow.
-- Keep feature code under `src/features/<feature>/`. Put code in `src/lib/` only when at least two
-  features genuinely share it and neither feature owns it.
+- Keep module code under `src/modules/<module>/`. Put code in `src/lib/` only when at least two
+  modules genuinely share it and neither module owns it.
 - Parse untrusted request, form, storage, and recognition output at the boundary. Use Zod once a
   feature needs runtime validation, and infer TypeScript types from schemas instead of duplicating
   interfaces.
-- Keep Supabase calls behind feature-owned adapters. Put schema and Row Level Security changes in
+- Keep Supabase calls behind module-owned adapters. Put schema and Row Level Security changes in
   migrations, and test user isolation before exposing user data.
 - Model future photo recognition as a replaceable provider that returns reviewable candidates.
   Never persist recognition output without user confirmation. Extract a worker only after actual
