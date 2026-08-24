@@ -54,6 +54,12 @@ TypeScriptをapplication全体の中心に据え，frontend，server処理，入
 
 まずは単一のNext.js applicationとして開発し，featureごとにcodeを分割します．将来の写真認識は交換可能な認識moduleとして追加し，必要になった段階でAI処理だけを独立したworkerへ分離できる構成を目指します．
 
+## 食品マスタ
+
+食品と100 g当たりの栄養値は，[日本食品標準成分表（八訂）増補2023年](https://www.mext.go.jp/a_menu/syokuhinseibun/mext_00001.html)の2026年3月27日正誤反映版をversion付きでSupabaseへ格納します．`supabase db reset`では画面確認用のさんま1件を投入します．
+
+全2,538食品を投入するときは，`SUPABASE_URL`と`SUPABASE_SERVICE_ROLE_KEY`を設定して，Nix開発環境内で`pnpm food-data:import`を実行します．`MEXT_FOOD_DATA_FILE`を指定しない場合は，固定した文部科学省の公開Excelを取得します．書込み前の解析だけを確認する場合は`pnpm food-data:import -- --dry-run`を使います．
+
 ## 将来構想
 
 - 最近使った食品や過去の食事の再利用

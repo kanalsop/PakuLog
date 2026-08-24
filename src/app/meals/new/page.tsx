@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import { FoodSearchInput } from "../../../modules/meal-entry/ui/food_search_input";
 import { FoodWeightInput } from "../../../modules/meal-entry/ui/food_weight_input";
 
 export default function NewMealPage() {
@@ -19,11 +20,12 @@ export default function NewMealPage() {
             </p>
             <h1 className="text-4xl font-semibold tracking-tight text-emerald-950">食事を記録</h1>
             <p className="leading-7 text-slate-600">
-              各桁を動かして、食べた量をすばやく設定できます。
+              食品を選び、各桁を動かして食べた量をすばやく設定できます。
             </p>
           </div>
         </header>
 
+        <FoodSearchInput name="foodId" />
         <FoodWeightInput defaultDecigrams={1_000} name="foodWeightGrams" />
       </div>
     </main>
