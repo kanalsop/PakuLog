@@ -1,12 +1,12 @@
 ---
-name: nutrilog-typescript
+name: pakulog-typescript
 description: >
-  NutriLog TypeScript and Next.js conventions for planning, writing, reviewing, linting, or testing
+  PakuLog TypeScript and Next.js conventions for planning, writing, reviewing, linting, or testing
   TS/TSX, React, App Router, Vitest, Playwright, and Supabase integration. Do not load for
   documentation-only or non-TypeScript tasks.
 ---
 
-# NutriLog TypeScript Development
+# PakuLog TypeScript Development
 
 ## Runtime
 

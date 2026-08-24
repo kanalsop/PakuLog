@@ -2,7 +2,7 @@
 
 毎日の食事を手軽に記録し，栄養の過不足を分かりやすく把握するための個人開発Webアプリです．
 
-repositoryとpackageでは内部名称として`NutriLog`を使用します．公開時のdomainは`pakulog.kananet.uk`を候補としています．
+公開時のdomainは`pakulog.kananet.uk`を候補としています．
 
 ## コンセプト
 

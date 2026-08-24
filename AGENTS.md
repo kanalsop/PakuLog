@@ -1,8 +1,7 @@
 # PakuLog Agent Guide
 
-PakuLog is a personal nutrition journal for recording meals and understanding daily nutrient
-balance. The repository and package use the internal name NutriLog. The product is for everyday
-health management, not diagnosis, treatment, or prevention of disease.
+PakuLog is a personal nutrition journal for recording meals and understanding daily nutrient balance.
+The product is for everyday health management, not diagnosis, treatment, or prevention of disease.
 
 ## Repository Map
 
@@ -19,7 +18,7 @@ health management, not diagnosis, treatment, or prevention of disease.
 
 - Follow Red → Green → Refactor, one executable specification at a time. Load `tsdd` before
   production code or tests. Production behavior without a failing-then-passing test is a defect.
-- Load `nutrilog-typescript` before planning, writing, reviewing, or testing TypeScript, TSX,
+- Load `pakulog-typescript` before planning, writing, reviewing, or testing TypeScript, TSX,
   Next.js, React, Playwright, Vitest, or Supabase integration.
 - Load `nix-dev-init` before changing the project development shell or language toolchain.
 - Load `adr` for broad decisions or reversals, and record the decision with the implementation.
