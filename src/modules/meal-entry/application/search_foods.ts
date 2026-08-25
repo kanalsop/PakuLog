@@ -1,11 +1,5 @@
 import { normalizeFoodSearchText } from "../../food-catalog/domain/normalize_food_search_text";
-
-export type FoodSearchResult = Readonly<{
-  id: number;
-  name: string;
-  categoryPath: readonly string[];
-  descriptors: readonly string[];
-}>;
+import { parseFoodSearchResult, type FoodSearchResult } from "./food_search_result";
 
 type FoodSearchRpc = Readonly<{
   rpc: (
@@ -14,37 +8,24 @@ type FoodSearchRpc = Readonly<{
   ) => PromiseLike<Readonly<{ data: unknown; error: Readonly<{ message: string }> | null }>>;
 }>;
 
-function isStringArray(value: unknown): value is string[] {
-  return Array.isArray(value) && value.every((item) => typeof item === "string");
-}
-
-function parseFoodSearchResults(value: unknown): FoodSearchResult[] {
+function parseFoodSearchRpcResults(value: unknown): FoodSearchResult[] {
   if (!Array.isArray(value)) {
     throw new Error("食品検索の応答形式が不正です");
   }
 
   return value.map((item) => {
-    if (
-      typeof item !== "object" ||
-      item === null ||
-      !("id" in item) ||
-      typeof item.id !== "number" ||
-      !("name" in item) ||
-      typeof item.name !== "string" ||
-      !("category_path" in item) ||
-      !isStringArray(item.category_path) ||
-      !("descriptors" in item) ||
-      !isStringArray(item.descriptors)
-    ) {
+    if (typeof item !== "object" || item === null) {
       throw new Error("食品検索の応答形式が不正です");
     }
 
-    return {
-      id: item.id,
-      name: item.name,
-      categoryPath: item.category_path,
-      descriptors: item.descriptors,
-    };
+    const row = item as Record<string, unknown>;
+
+    return parseFoodSearchResult({
+      id: row.id,
+      name: row.name,
+      categoryPath: row.category_path,
+      descriptors: row.descriptors,
+    });
   });
 }
 
@@ -67,5 +48,5 @@ export async function searchFoods(
     throw new Error(`食品検索に失敗しました: ${error.message}`);
   }
 
-  return parseFoodSearchResults(data);
+  return parseFoodSearchRpcResults(data);
 }

@@ -1,4 +1,4 @@
-import { type FoodSearchResult } from "../../../modules/meal-entry/application/search_foods";
+import { type FoodSearchResult } from "../../../modules/meal-entry/application/food_search_result";
 import { createFoodSearchGet } from "./route";
 
 describe("GET /api/foods", () => {

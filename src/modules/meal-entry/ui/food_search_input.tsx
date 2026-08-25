@@ -2,55 +2,21 @@
 
 import { FormEvent, useId, useState } from "react";
 
-type FoodOption = Readonly<{
-  id: number;
-  name: string;
-  categoryPath: readonly string[];
-  descriptors: readonly string[];
-}>;
+import { parseFoodSearchResults, type FoodSearchResult } from "../application/food_search_result";
 
 type FoodSearchInputProps = Readonly<{
   name: string;
 }>;
 
-function isStringArray(value: unknown): value is string[] {
-  return Array.isArray(value) && value.every((item) => typeof item === "string");
-}
-
-function parseFoodOptions(value: unknown): FoodOption[] {
-  if (!Array.isArray(value)) {
-    throw new Error("食品検索の応答形式が不正です");
-  }
-
-  return value.map((item) => {
-    if (
-      typeof item !== "object" ||
-      item === null ||
-      !("id" in item) ||
-      typeof item.id !== "number" ||
-      !("name" in item) ||
-      typeof item.name !== "string" ||
-      !("categoryPath" in item) ||
-      !isStringArray(item.categoryPath) ||
-      !("descriptors" in item) ||
-      !isStringArray(item.descriptors)
-    ) {
-      throw new Error("食品検索の応答形式が不正です");
-    }
-
-    return item as FoodOption;
-  });
-}
-
-function formatFoodName(food: FoodOption): string {
+function formatFoodName(food: FoodSearchResult): string {
   return food.descriptors.length > 0 ? `${food.name}（${food.descriptors.join("・")}）` : food.name;
 }
 
 export function FoodSearchInput({ name }: FoodSearchInputProps) {
   const inputId = useId();
   const [query, setQuery] = useState("");
-  const [results, setResults] = useState<FoodOption[]>([]);
-  const [selectedFood, setSelectedFood] = useState<FoodOption | null>(null);
+  const [results, setResults] = useState<FoodSearchResult[]>([]);
+  const [selectedFood, setSelectedFood] = useState<FoodSearchResult | null>(null);
   const [status, setStatus] = useState<"idle" | "loading" | "error">("idle");
 
   async function submitSearch(event: FormEvent<HTMLFormElement>) {
@@ -70,7 +36,7 @@ export function FoodSearchInput({ name }: FoodSearchInputProps) {
         throw new Error("食品を検索できませんでした");
       }
 
-      setResults(parseFoodOptions(await response.json()));
+      setResults(parseFoodSearchResults(await response.json()));
       setStatus("idle");
     } catch {
       setResults([]);

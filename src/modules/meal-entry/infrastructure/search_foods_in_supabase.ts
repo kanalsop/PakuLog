@@ -1,6 +1,7 @@
 import { createClient } from "@supabase/supabase-js";
 
-import { searchFoods, type FoodSearchResult } from "../application/search_foods";
+import { type FoodSearchResult } from "../application/food_search_result";
+import { searchFoods } from "../application/search_foods";
 
 function requiredEnvironmentValue(primaryName: string, fallbackName: string): string {
   const value = process.env[primaryName] ?? process.env[fallbackName];

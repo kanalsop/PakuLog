@@ -1,4 +1,4 @@
-import { type FoodSearchResult } from "../../../modules/meal-entry/application/search_foods";
+import { type FoodSearchResult } from "../../../modules/meal-entry/application/food_search_result";
 import { searchFoodsInSupabase } from "../../../modules/meal-entry/infrastructure/search_foods_in_supabase";
 
 type SearchFoodCatalog = (query: string) => Promise<FoodSearchResult[]>;
