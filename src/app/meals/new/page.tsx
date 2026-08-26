@@ -2,6 +2,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 
 import { parseMealType, type MealType } from "../../../modules/meal-entry/domain/meal_type";
+import { ConsumedAtInput } from "../../../modules/meal-entry/ui/consumed_at_input";
 import { FoodSearchInput } from "../../../modules/meal-entry/ui/food_search_input";
 import { FoodWeightInput } from "../../../modules/meal-entry/ui/food_weight_input";
 import { MealTypeInput } from "../../../modules/meal-entry/ui/meal_type_input";
@@ -35,6 +36,7 @@ export function MealEntryDetails({ mealType }: MealEntryDetailsProps) {
         <MealTypeInput defaultValue={mealType} name="mealType" />
         <FoodSearchInput name="foodId" />
         <FoodWeightInput defaultDecigrams={1_000} name="foodWeightGrams" />
+        <ConsumedAtInput dateName="consumedOn" timeName="consumedTime" />
       </div>
     </main>
   );

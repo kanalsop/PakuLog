@@ -27,4 +27,13 @@ describe("New meal page", () => {
       screen.getByRole("searchbox", { name: "食品名" }),
     );
   });
+
+  it("asks for an optional consumed time after the food weight", () => {
+    render(<MealEntryDetails mealType="breakfast" />);
+
+    expect(screen.getByRole("spinbutton", { name: "摂取量" })).toAppearBefore(
+      screen.getByLabelText("摂取日"),
+    );
+    expect(screen.getByLabelText("摂取時刻（任意）")).toHaveValue("");
+  });
 });
