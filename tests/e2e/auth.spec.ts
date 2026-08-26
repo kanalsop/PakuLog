@@ -7,9 +7,9 @@ test("a user returns to meal entry after creating and reusing an account", async
   const email = `auth-${projectName}-${Date.now()}@example.com`;
   const password = "mealpass1";
 
-  await page.goto("/meals/new?from=e2e");
+  await page.goto("/meals/new?mealType=breakfast&from=e2e");
 
-  await expect(page).toHaveURL(/\/login\?next=%2Fmeals%2Fnew%3Ffrom%3De2e$/);
+  await expect(page).toHaveURL(/\/login\?next=%2Fmeals%2Fnew%3FmealType%3Dbreakfast%26from%3De2e$/);
   await page.getByRole("link", { name: "アカウント作成" }).click();
   await page.waitForLoadState("networkidle");
   const signupEmail = page.getByRole("textbox", { name: "メールアドレス" });
@@ -24,7 +24,7 @@ test("a user returns to meal entry after creating and reusing an account", async
   ).toBe(true);
   await page.getByRole("button", { name: "アカウントを作成" }).click();
 
-  await expect(page).toHaveURL(/\/meals\/new\?from=e2e$/);
+  await expect(page).toHaveURL(/\/meals\/new\?mealType=breakfast&from=e2e$/);
   await expect(page.getByRole("heading", { level: 1, name: "食事を記録" })).toBeVisible();
 
   await page.getByRole("button", { name: "ログアウト" }).click();
@@ -39,5 +39,5 @@ test("a user returns to meal entry after creating and reusing an account", async
 
   await page.getByLabel("パスワード").fill(password);
   await page.getByRole("button", { name: "ログイン" }).click();
-  await expect(page).toHaveURL(/\/meals\/new$/);
+  await expect(page).toHaveURL(/\/meals\/new\/type$/);
 });

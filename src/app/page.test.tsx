@@ -10,12 +10,12 @@ describe("Home page", () => {
     expect(screen.getByText("毎日の食事を，無理なく記録．")).toBeInTheDocument();
   });
 
-  it("links to the new meal entry", () => {
+  it("starts a meal record by asking for its meal type", () => {
     render(<Home />);
 
     expect(screen.getByRole("link", { name: "食事を記録する" })).toHaveAttribute(
       "href",
-      "/meals/new",
+      "/meals/new/type",
     );
   });
 });
