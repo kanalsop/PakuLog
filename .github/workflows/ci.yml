@@ -95,8 +95,22 @@ jobs:
       - name: Install Chromium
         run: pnpm exec playwright install --with-deps chromium
 
+      - name: Start local Supabase
+        run: pnpm exec supabase start
+
+      - name: Export local Supabase public values
+        run: |
+          pnpm exec supabase status -o env \
+            --override-name api.url=NEXT_PUBLIC_SUPABASE_URL \
+            --override-name auth.publishable_key=NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY \
+            | rg '^NEXT_PUBLIC_' >> "$GITHUB_ENV"
+
       - name: Run browser tests
         run: pnpm test:e2e
+
+      - name: Stop local Supabase
+        if: always()
+        run: pnpm exec supabase stop
 
   database:
     runs-on: ubuntu-latest
