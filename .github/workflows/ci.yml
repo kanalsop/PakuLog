@@ -103,7 +103,7 @@ jobs:
           pnpm exec supabase status -o env \
             --override-name api.url=NEXT_PUBLIC_SUPABASE_URL \
             --override-name auth.publishable_key=NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY \
-            | rg '^NEXT_PUBLIC_' >> "$GITHUB_ENV"
+            | grep '^NEXT_PUBLIC_' >> "$GITHUB_ENV"
 
       - name: Run browser tests
         run: pnpm test:e2e
