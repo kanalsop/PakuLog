@@ -1,5 +1,11 @@
 import { expect, test } from "@playwright/test";
 
+import { signUpTestUser } from "./support/authentication";
+
+test.beforeEach(async ({ page }, testInfo) => {
+  await signUpTestUser(page, testInfo, "/meals/new/type");
+});
+
 test("chooses a meal type before opening the detailed meal entry", async ({ page }) => {
   await page.goto("/");
 

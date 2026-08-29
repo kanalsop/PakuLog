@@ -7,6 +7,7 @@ PakuLogへの変更をlocalで開発し，Pull Requestとして提出するた�
 - Git
 - Nix
 - direnv
+- Docker
 - Chromiumを実行できる環境
 
 Node.jsとpnpmはNix development shellから提供されるため，個別にinstallする必要はありません．
@@ -39,7 +40,7 @@ pnpm dev
 | `pnpm lint`      | TypeScript・React・Next.jsを静的解析する             |
 | `pnpm typecheck` | TypeScriptの型を検査する                             |
 | `pnpm test`      | unit testとcomponent testを実行する                  |
-| `pnpm test:e2e`  | desktop・mobile ChromiumでE2E testを実行する         |
+| `pnpm test:e2e`  | local Supabaseに対してbrowser E2E testを実行する     |
 | `pnpm check`     | Pull Request前の品質検査とproduction buildを実行する |
 | `pnpm check:all` | `pnpm check`にE2E testを加えて実行する               |
 
@@ -51,7 +52,34 @@ pnpm exec playwright install chromium
 
 ## Supabase
 
-Supabase CLIと`supabase/config.toml`は導入済みですが，local database，schema，migration，seedはまだ整備していません．現段階では`supabase start`を通常の開発手順に含めません．
+Supabase CLI，local database，migration，seed，メール・パスワード認証を利用します．Dockerを起動した状態でlocal Supabaseを開始してください．
+
+```bash
+pnpm exec supabase start
+```
+
+local SupabaseのURLとpublishable keyをNext.jsへ渡すため，次のcommandで`.env.local`を作成します．
+
+```bash
+pnpm exec supabase status -o env \
+  --override-name api.url=NEXT_PUBLIC_SUPABASE_URL \
+  --override-name auth.publishable_key=NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY \
+  | rg '^NEXT_PUBLIC_' > .env.local
+```
+
+`supabase/config.toml`では，メール確認なし，8文字以上かつ英字・数字を含むパスワードを設定しています．local環境で送信された認証メールはMailpit（通常は`http://127.0.0.1:54324`）で確認できますが，MVPのアカウント作成では確認メールを使用しません．
+
+hosted SupabaseでもAuthenticationのEmail providerを有効にし，Confirm emailを無効，minimum password lengthを8，password requirementsをletters and digitsへ揃えてください．Project URLとpublishable keyはdeploy先の`NEXT_PUBLIC_SUPABASE_URL`と`NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`へ設定します．
+
+database testとbrowser E2E testはlocal Supabaseの起動中に実行します．作業後は停止できます．
+
+```bash
+pnpm test:db
+pnpm test:e2e
+pnpm exec supabase stop
+```
+
+MEXT食品dataを一括importするときだけ，`.env.local`へ`SUPABASE_URL`と`SUPABASE_SERVICE_ROLE_KEY`も設定します．service role keyをbrowserへ公開してはいけません．
 
 ## Branchとcommit
 
