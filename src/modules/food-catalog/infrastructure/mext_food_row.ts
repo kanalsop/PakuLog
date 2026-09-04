@@ -41,7 +41,7 @@ function parseNutrientValue(sourceValue: string): Readonly<{
   amountPer100g: number | null;
   valueKind: NutrientValueKind;
 }> {
-  const value = sourceValue.trim();
+  const value = sourceValue.trim().replace(/†$/, "");
 
   if (value === "-" || value.length === 0) {
     return { amountPer100g: null, valueKind: "missing" };

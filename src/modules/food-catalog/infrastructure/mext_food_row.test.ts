@@ -53,4 +53,24 @@ describe("parseMextFoodRow", () => {
       ],
     });
   });
+
+  it("parses a dagger-annotated nutrient while preserving its MEXT source text", () => {
+    expect(
+      parseMextFoodRow({
+        groupCode: "03",
+        sourceCode: "03032",
+        sourceName: "（でん粉糖類）　還元水あめ",
+        remark: "†は規定法による測定値",
+        nutrients: [{ code: "FIB-", unit: "g", sourceValue: "14.0†" }],
+      }).nutrients,
+    ).toEqual([
+      {
+        nutrientCode: "FIB-",
+        amountPer100g: 14,
+        unit: "g",
+        sourceValue: "14.0†",
+        valueKind: "measured",
+      },
+    ]);
+  });
 });
