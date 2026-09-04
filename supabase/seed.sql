@@ -32,16 +32,23 @@ insert into public.food_nutrients (
   source_value,
   value_kind
 )
-select id, nutrient.nutrient_code, nutrient.amount, nutrient.unit, nutrient.source_value, 'measured'
+select
+  id,
+  nutrient.nutrient_code,
+  nutrient.amount,
+  nutrient.unit,
+  nutrient.source_value,
+  nutrient.value_kind
 from public.foods
 cross join (
   values
-    ('ENERC_KCAL', 287::numeric, 'kcal', '287'),
-    ('PROT-', 18.1::numeric, 'g', '18.1'),
-    ('FAT-', 25.6::numeric, 'g', '25.6'),
-    ('CHOCDF-', 0.1::numeric, 'g', '0.1'),
-    ('NACL_EQ', 0.4::numeric, 'g', '0.4')
-) as nutrient(nutrient_code, amount, unit, source_value)
+    ('ENERC_KCAL', 287::numeric, 'kcal', '287', 'measured'),
+    ('PROT-', 18.1::numeric, 'g', '18.1', 'measured'),
+    ('FAT-', 25.6::numeric, 'g', '25.6', 'measured'),
+    ('CHOCDF-', 0.1::numeric, 'g', '0.1', 'measured'),
+    ('FIB-', 0::numeric, 'g', '(0)', 'estimated'),
+    ('NACL_EQ', 0.4::numeric, 'g', '0.4', 'measured')
+) as nutrient(nutrient_code, amount, unit, source_value, value_kind)
 where source_release = 'mext-2023-correction-20260327' and source_code = '10173'
 on conflict (food_id, nutrient_code) do update set
   amount_per_100g = excluded.amount_per_100g,

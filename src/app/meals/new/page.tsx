@@ -5,8 +5,7 @@ import { requireCurrentUser } from "../../../modules/auth/infrastructure/server_
 import { signOutAction } from "../../../modules/auth/ui/auth_actions";
 import { parseMealType, type MealType } from "../../../modules/meal-entry/domain/meal_type";
 import { ConsumedAtInput } from "../../../modules/meal-entry/ui/consumed_at_input";
-import { FoodSearchInput } from "../../../modules/meal-entry/ui/food_search_input";
-import { FoodWeightInput } from "../../../modules/meal-entry/ui/food_weight_input";
+import { MealNutrientFields } from "../../../modules/meal-entry/ui/meal_nutrient_fields";
 import { MealTypeInput } from "../../../modules/meal-entry/ui/meal_type_input";
 
 type MealEntryDetailsProps = Readonly<{
@@ -46,8 +45,11 @@ export function MealEntryDetails({ mealType }: MealEntryDetailsProps) {
         </header>
 
         <MealTypeInput defaultValue={mealType} name="mealType" />
-        <FoodSearchInput name="foodId" />
-        <FoodWeightInput defaultDecigrams={1_000} name="foodWeightGrams" />
+        <MealNutrientFields
+          defaultDecigrams={1_000}
+          foodIdName="foodId"
+          weightName="foodWeightGrams"
+        />
         <ConsumedAtInput dateName="consumedOn" timeName="consumedTime" />
       </div>
     </main>

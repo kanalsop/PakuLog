@@ -1,6 +1,6 @@
 begin;
 
-select plan(13);
+select plan(14);
 
 select has_table(
   'public',
@@ -108,7 +108,7 @@ select results_eq(
       where source_release = 'mext-2023-correction-20260327'
         and source_code = '10173'
     )
-      and nutrient_code in ('CHOCDF-', 'ENERC_KCAL', 'FAT-', 'NACL_EQ', 'PROT-')
+      and nutrient_code in ('CHOCDF-', 'ENERC_KCAL', 'FAT-', 'FIB-', 'NACL_EQ', 'PROT-')
     order by nutrient_code
   $$,
   $$
@@ -116,10 +116,27 @@ select results_eq(
       ('CHOCDF-'::text),
       ('ENERC_KCAL'::text),
       ('FAT-'::text),
+      ('FIB-'::text),
       ('NACL_EQ'::text),
       ('PROT-'::text)
   $$,
   'Seed nutrients use the source MEXT component identifiers'
+);
+
+select results_eq(
+  $$
+    select amount_per_100g, source_value, value_kind
+    from public.food_nutrients
+    where food_id = (
+      select id
+      from public.foods
+      where source_release = 'mext-2023-correction-20260327'
+        and source_code = '10173'
+    )
+      and nutrient_code = 'FIB-'
+  $$,
+  $$ values (0::numeric, '(0)'::text, 'estimated'::text) $$,
+  'Seed fiber preserves the estimated zero from the MEXT source'
 );
 
 select ok(

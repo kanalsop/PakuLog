@@ -6,13 +6,14 @@ import { parseFoodSearchResults, type FoodSearchResult } from "../application/fo
 
 type FoodSearchInputProps = Readonly<{
   name: string;
+  onSelect?: (food: FoodSearchResult) => void;
 }>;
 
 function formatFoodName(food: FoodSearchResult): string {
   return food.descriptors.length > 0 ? `${food.name}（${food.descriptors.join("・")}）` : food.name;
 }
 
-export function FoodSearchInput({ name }: FoodSearchInputProps) {
+export function FoodSearchInput({ name, onSelect }: FoodSearchInputProps) {
   const inputId = useId();
   const [query, setQuery] = useState("");
   const [results, setResults] = useState<FoodSearchResult[]>([]);
@@ -87,7 +88,10 @@ export function FoodSearchInput({ name }: FoodSearchInputProps) {
               <button
                 aria-label={formatFoodName(food)}
                 className="w-full rounded-xl border border-emerald-950/10 bg-white px-4 py-3 text-left hover:bg-emerald-50"
-                onClick={() => setSelectedFood(food)}
+                onClick={() => {
+                  setSelectedFood(food);
+                  onSelect?.(food);
+                }}
                 type="button"
               >
                 <span className="block font-semibold text-emerald-950">{formatFoodName(food)}</span>

@@ -106,12 +106,21 @@ function DigitWheel({ label, onChange, value }: DigitWheelProps) {
 type FoodWeightInputProps = Readonly<{
   defaultDecigrams?: number;
   name: string;
+  onDecigramsChange?: (decigrams: number) => void;
 }>;
 
-export function FoodWeightInput({ defaultDecigrams = 1_000, name }: FoodWeightInputProps) {
+export function FoodWeightInput({
+  defaultDecigrams = 1_000,
+  name,
+  onDecigramsChange,
+}: FoodWeightInputProps) {
   const [decigrams, setDecigrams] = useState(defaultDecigrams);
   const errorMessageId = useId();
   const isZero = decigrams === 0;
+
+  useEffect(() => {
+    onDecigramsChange?.(decigrams);
+  }, [decigrams, onDecigramsChange]);
 
   function changeDigit(factor: number, nextDigit: number) {
     setDecigrams((currentDecigrams) => {

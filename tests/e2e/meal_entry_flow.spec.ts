@@ -38,3 +38,18 @@ test("keeps detailed input when correcting the meal type", async ({ page }) => {
   await expect(page.getByRole("radio", { name: "間食" })).toBeChecked();
   await expect(page.getByRole("spinbutton", { name: "摂取量" })).toHaveValue("123.4");
 });
+
+test("previews the selected food nutrients as the weight changes", async ({ page }) => {
+  await page.goto("/meals/new?mealType=breakfast");
+  await page.getByRole("searchbox", { name: "食品名" }).fill("サンマ");
+  await page.getByRole("button", { name: "検索" }).click();
+  await page.getByRole("button", { name: "さんま（皮つき・生）" }).click();
+
+  await expect(page.getByRole("row", { name: "エネルギー 287 kcal" })).toBeVisible();
+  await expect(page.getByRole("row", { name: "食物繊維 0.0 g" })).toBeVisible();
+
+  await page.getByRole("spinbutton", { name: "摂取量" }).fill("50.0");
+
+  await expect(page.getByRole("row", { name: "エネルギー 144 kcal" })).toBeVisible();
+  await expect(page.getByRole("row", { name: "たんぱく質 9.1 g" })).toBeVisible();
+});
